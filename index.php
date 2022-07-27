@@ -11,7 +11,7 @@
 <body>
 
   <!--Form-->
-  <div class="container mt-3">
+  <!-- <div class="container mt-3">
     <h4 class="m-1"><abbr title="Upload your audio file">Upload your audio file</abbr></h4>
     <form class="bg-light" action="process.php" method="post" enctype="multipart/form-data">
       <div class="m-1">
@@ -22,7 +22,23 @@
         <input class="btn btn-primary rounded-pill m-1 float-end" type="submit">
       </div>
     </form>
-  </div>
+  </div> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <input type="file" id="upload" />
+  <audio id="audio" controls>
+    <source src="" id="src" />
+  </audio>
+
+  <script>
+    function handleFiles(event) {
+      var files = event.target.files;
+      $("#src").attr("src", URL.createObjectURL(files[0]));
+      document.getElementById("audio").load();
+    }
+
+    document.getElementById("upload").addEventListener("change", handleFiles, false);
+  </script>
 
 </body>
 
