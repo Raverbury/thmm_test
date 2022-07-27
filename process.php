@@ -35,7 +35,7 @@
   $x = parse_url($_SERVER['REQUEST_URI']);
 
   echo '<audio controls>
-         <source src="' . '\\THMM\\uploads\\' . $newFileName . '" type="audio/wav">
+         <source src="' . '\\uploads\\' . $newFileName . '" type="audio/wav">
       </audio>';
   ?>
 
