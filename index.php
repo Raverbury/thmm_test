@@ -62,7 +62,7 @@
       <source src="" id="src" />
     </audio>
 
-    <div id="bar" data-style="smooth" style="--duration: 3;" class="bar-static">
+    <div id="bar" data-style="smooth" style="--duration: 2;" class="bar-static">
       <div></div>
     </div>
 
@@ -104,6 +104,10 @@
 
     const JUDGEMENT_LINE_DISTANCE = 0.8;
     const LANE_GAP = 400;
+    const FPS = 60;
+
+    const RECORD_READY_DELAY = 2;
+    const REPLAY_TIME_TO_TARGET = 2;
 
     $(document).ready(function() {
       inReplayMode = false;
@@ -153,7 +157,7 @@
           startTimestamp = getTimestamp();
           $("#audio")[0].volume = 1;
           $("#audio")[0].play();
-        }, 3000);
+        }, RECORD_READY_DELAY * 1000);
       });
 
       $("#stopBtn").click(function() {
@@ -185,12 +189,12 @@
         $("#recordBtn").prop("disabled", true);
         $("#replayBtn").prop("disabled", false);
         $("#exportBtn").prop("disabled", true);
-        replayTask = setInterval(updateCanvas, 1000 / 60);
+        replayTask = setInterval(updateCanvas, 1000 / FPS);
         tileQueue = [];
         replayCountdownTask = setTimeout(() => {
           $("#audio")[0].volume = 0.6;
           $("#audio")[0].play();
-        }, 3000);
+        }, REPLAY_TIME_TO_TARGET * 1000);
         spawnTasks = [];
         for (let index = 0; index < posArray.length; index++) {
           spawnTasks.push(setTimeout(() => {
@@ -293,7 +297,7 @@
       }
 
       update = () => {
-        this.y += canvas.height * JUDGEMENT_LINE_DISTANCE / (3 * 60);
+        this.y += canvas.height * JUDGEMENT_LINE_DISTANCE / (REPLAY_TIME_TO_TARGET * FPS);
         canvasContext.beginPath();
         canvasContext.fillStyle = this.color;
         canvasContext.rect(this.x - canvas.width * 0.1, this.y, canvas.width * 0.2, canvas.height * 0.05);
