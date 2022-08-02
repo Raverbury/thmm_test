@@ -73,7 +73,7 @@
       <button type="button" class="btn btn-warning" id="exportBtn">Export</button>
     </div>
 
-    <div class="container">
+    <div class="container my-4">
       <canvas id="mapCanvas" width="1000" height="400"></canvas>
     </div>
 
@@ -151,6 +151,7 @@
         countdownTask = setTimeout(() => {
           isRecording = true;
           startTimestamp = getTimestamp();
+          $("#audio")[0].volume = 1;
           $("#audio")[0].play();
         }, 3000);
       });
@@ -187,6 +188,7 @@
         replayTask = setInterval(updateCanvas, 1000 / 60);
         tileQueue = [];
         replayCountdownTask = setTimeout(() => {
+          $("#audio")[0].volume = 0.6;
           $("#audio")[0].play();
         }, 3000);
         spawnTasks = [];
